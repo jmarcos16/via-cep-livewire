@@ -1,14 +1,15 @@
 <div>
 
-    <div x-data="{input: ''}">
-        <x-text-input class="w-full rounded py-4" wire:model.live="cep" wire:keydown.enter="searchAddress" placeholder="Provide postal code"
-                      x-model="input" type="text"
-            type="text" name="cep" id="cep" x-on:cep-searched.window="input=''" autocomplete="off" />
-        <x-input-error class="mt-2" :messages="$errors->get('cep')" />
+    <div x-data="{input: ''}" class="flex gap-3">
+            <x-text-input class="w-full rounded py-2" wire:model.live="cep" wire:keydown.enter="searchAddress" placeholder="Provide postal code"
+                          x-model="input" type="text"
+                          type="text" name="cep" id="cep" x-on:cep-searched.window="input=''" autocomplete="off" autofocus />
+
+        <x-secondary-button class="py-2 px-6" wire:click="searchAddress">Search</x-secondary-button>
     </div>
+    <x-input-error class="mt-2 relative" :messages="$errors->get('cep')" />
 
-
-    <div class="overflow-x-auto py-8">
+    <div class="overflow-x-auto py-6">
 
     <div class="overflow-hidden align-middle rounded-lg shadow border border-gray-300">
         <table class="w-full">
