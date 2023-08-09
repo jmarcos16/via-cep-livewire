@@ -3,7 +3,7 @@
 use App\Http\Controllers\ProfileController;
 use Illuminate\Support\Facades\Route;
 
-Route::get('/', \App\Http\Livewire\PostCode::class);
+Route::get('/postcode', \App\Livewire\PostCode::class);
 
 Route::get('/dashboard', function () {
     return view('dashboard');
