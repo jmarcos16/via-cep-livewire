@@ -3,11 +3,14 @@
 namespace App\Livewire;
 
 use Illuminate\Support\Facades\Http;
+use Illuminate\Validation\ValidationException;
+use Livewire\Attributes\Rule;
 use Livewire\Component;
 
 class PostCode extends Component
 {
-    public int $postCode;
+    #[Rule('required|regex:/^[0-9]{5}-[0-9]{3}$/')]
+    public $postCode;
 
     public string $host = 'https://viacep.com.br/ws/{cep}/json/';
 
@@ -22,13 +25,14 @@ class PostCode extends Component
     public function searchPostCode()
     {
 
-        $this->validate([
-            'postCode' => 'required|numeric|digits:8'
-        ]);
+        $this->validate();
 
         $url = str_replace('{cep}', $this->postCode, $this->host);
 
         $response = Http::get($url)->object();
+
+
+        !$response->erro ?: throw ValidationException::withMessages(['postCode' => 'PostCode not found']);
 
         $this->address = $response->logradouro;
         $this->neighborhood = $response->bairro;

@@ -1,12 +1,18 @@
 <div class="relative bg-gray-300 h-96 w-[40rem] p-10 m-auto top-36 rounded-lg shadow border-gray-600">
 
-    <div class="flex w-full my-3">
+    <form wire:submit="searchPostCode" class="flex w-full my-3">
         <x-text-input class="rounded-r-none w-10/12 px-4 py-3" label="CEP" placeholder="Provide PostCode"
             wire:model="postCode" />
 
-        <x-primary-button wire:click="searchPostCode" class="rounded-l-none">
+        <x-primary-button class="rounded-l-none" wire:loading.attr="disabled">
             Search
         </x-primary-button>
+    </form>
+
+    <div class="text-red-600">
+        @error('postCode')
+            {{ $message }}
+        @enderror
     </div>
 
 
